@@ -67,6 +67,10 @@ public class BotParser {
                     String data = parts[3];
                     mField.parseFromString(data); /* Parse Field with data */
                 }
+                if(parts[2].equals("round")) {
+                    int round = Integer.parseInt(parts[3]);
+                    mField.setRound(round);
+                }
             } else if(parts[0].equals("action")) {
                 if (parts[1].equals("move")) { /* move requested */
                     int column = bot.makeTurn(mField, mBotId);

@@ -17,6 +17,7 @@ public class Field {
             '0', '0', '0', '0', '0', '0', '0',
             '0', '0', '0', '0', '0', '0', '0',
             '0', '0', '0', '0', '0', '0', '0'};
+    private int round;
 
 
     public Field(int columns, int rows) {
@@ -80,6 +81,18 @@ public class Field {
                         && mBoard[row][col + 3] == player) {
                     score += 100;
                     col += 3;
+                } else if (mBoard[row][col] == player
+                        && mBoard[row][col + 1] == 0
+                        && mBoard[row][col + 2] == player
+                        && mBoard[row][col + 3] == player) {
+                    score += 100;
+                    col += 3;
+                } else if (mBoard[row][col] == player
+                        && mBoard[row][col + 1] == player
+                        && mBoard[row][col + 2] == 0
+                        && mBoard[row][col + 3] == player) {
+                    score += 100;
+                    col += 3;
                 }
             }
         }
@@ -140,6 +153,20 @@ public class Field {
                     score += 100;
                     row += 3;
                     col += 3;
+                } else if (mBoard[row][col] == player
+                        && mBoard[row + 1][col + 1] == 0
+                        && mBoard[row + 2][col + 2] == player
+                        && mBoard[row + 3][col + 3] == player) {
+                    score += 100;
+                    row += 3;
+                    col += 3;
+                } else if (mBoard[row][col] == player
+                        && mBoard[row + 1][col + 1] == player
+                        && mBoard[row + 2][col + 2] == 0
+                        && mBoard[row + 3][col + 3] == player) {
+                    score += 100;
+                    row += 3;
+                    col += 3;
                 }
             }
         }
@@ -168,6 +195,20 @@ public class Field {
                 } else if (mBoard[row][col] == 0
                         && mBoard[row - 1][col + 1] == player
                         && mBoard[row - 2][col + 2] == player
+                        && mBoard[row - 3][col + 3] == player) {
+                    score += 100;
+                    row -= 3;
+                    col += 3;
+                } else if (mBoard[row][col] == player
+                        && mBoard[row - 1][col + 1] == 0
+                        && mBoard[row - 2][col + 2] == player
+                        && mBoard[row - 3][col + 3] == player) {
+                    score += 100;
+                    row -= 3;
+                    col += 3;
+                } else if (mBoard[row][col] == player
+                        && mBoard[row - 1][col + 1] == player
+                        && mBoard[row - 2][col + 2] == 0
                         && mBoard[row - 3][col + 3] == player) {
                     score += 100;
                     row -= 3;
@@ -396,5 +437,13 @@ public class Field {
 
     public String getBoardHash() {
         return String.valueOf(boardHash);
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public int getRound() {
+        return round;
     }
 }

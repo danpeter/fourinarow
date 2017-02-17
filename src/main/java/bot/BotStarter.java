@@ -17,6 +17,23 @@ class BotStarter {
      * @return The column where the turn was made.
      */
     public int makeTurn(Field mField, int mBotId) {
+
+        int round = mField.getRound();
+        //Some static turns
+        if (round == 1) {
+            if (mBotId == 1) {
+                return 3;
+            } else if (mBotId == 2 && mField.getDisc(3, 5) == 1) {
+                return 3;
+            }
+        } else if (round == 2) {
+            if (mBotId == 1 && mField.getDisc(3, 4) == 2) {
+                return 3;
+            } else if (mBotId == 2 && mField.getDisc(3, 5) == 1) {
+                return 3;
+            }
+        }
+
         Instant deadline = Instant.now().plusMillis(500);
 
         final MiniMax miniMax = new MiniMax(mField, mBotId, fourInARowCache, transpositions);
@@ -31,15 +48,17 @@ class BotStarter {
             Future<MiniMaxScore> submit = Executors.newSingleThreadExecutor().submit(() -> miniMax.miniMax(finalDepth, mBotId));
             try {
                 miniMaxScore = submit.get(deadline.minusMillis(Instant.now().toEpochMilli() + 50).toEpochMilli(), TimeUnit.MILLISECONDS);
+                System.out.println("Depth: " + depth);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
                 break;
             } catch (TimeoutException e) {
+//                System.out.println("Taking too long time, aborting.");
                 break;
             }
-
+            System.out.println("Depth: " + depth);
         }
 
         return miniMaxScore.column;

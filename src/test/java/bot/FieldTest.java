@@ -54,6 +54,17 @@ public class FieldTest {
                 {0, 0, 1, 1, 1, 0, 0}});
         System.out.println(field.toString());
         assertThat(field.score(1), is(100));
+
+
+        field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 1, 1, 0}});
+        System.out.println(field.toString());
+        assertThat(field.score(1), is(100));
     }
 
     @Test
@@ -127,6 +138,16 @@ public class FieldTest {
                 {2, 0, 0, 0, 0, 0, 0}});
         System.out.println(field.toString());
         assertThat(field.score(1), is(100));
+
+        field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 2, 0, 0, 0},
+                {0, 1, 2, 2, 0, 0, 0},
+                {1, 2, 2, 2, 0, 0, 0}});
+        System.out.println(field.toString());
+        assertThat(field.score(1), is(100));
     }
 
     @Test
@@ -161,6 +182,16 @@ public class FieldTest {
                 {0, 0, 0, 1, 0, 0, 0},
                 {0, 0, 0, 0, 1, 0, 0},
                 {0, 0, 0, 0, 0, 2, 0}});
+        System.out.println(field.toString());
+        assertThat(field.score(1), is(100));
+
+        field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 2, 1, 0, 0, 0},
+                {0, 0, 2, 2, 0, 0, 0},
+                {0, 0, 2, 2, 2, 1, 0}});
         System.out.println(field.toString());
         assertThat(field.score(1), is(100));
     }
@@ -213,11 +244,73 @@ public class FieldTest {
     }
 
     @Test
+    public void heuristicShouldBeZero() throws Exception {
+        Field field = new Field(7, 6);
+        field.addDisc(0,1);
+        field.addDisc(0,2);
+        field.addDisc(0,1);
+        field.addDisc(0,2);
+        field.addDisc(0,1);
+        field.addDisc(0,2);
+        assertThat(field.score(1), is(0));
+        System.out.println(field.getBoardHash());
+    }
+
+    @Test
     public void checkHash() throws Exception {
         Field field = new Field(7, 6);
         field.addDisc(5, 1);
         field.addDisc(6, 2);
         field.addDisc(6, 1);
         assertThat(field.getBoardHash(), is("000000000000000000000000000000000010000012"));
+
+        field = new Field(7, 6);
+        field.addDisc(0, 1);
+        field.addDisc(0, 2);
+        field.addDisc(0, 1);
+        field.addDisc(0, 1);
+        field.addDisc(0, 1);
+        assertThat(field.getBoardHash(), is("000000010000001000000100000020000001000000"));
+    }
+
+    @Test
+    public void hasFourInARow() throws Exception {
+        Field field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 0, 0, 0}});
+        assertThat(field.anyPlayerHasFourInARow(), is(true));
+
+        field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 2, 2, 2, 2, 0}});
+        assertThat(field.anyPlayerHasFourInARow(), is(true));
+
+        field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 2, 0, 0, 0},
+                {0, 0, 0, 2, 0, 0, 0},
+                {0, 0, 0, 2, 0, 0, 0},
+                {0, 0, 0, 2, 0, 0, 0}});
+        assertThat(field.anyPlayerHasFourInARow(), is(true));
+
+
+        field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 2, 0, 0, 0},
+                {0, 0, 0, 2, 0, 0, 0},
+                {0, 0, 0, 2, 0, 0, 0}});
+        assertThat(field.anyPlayerHasFourInARow(), is(false));
+
     }
 }

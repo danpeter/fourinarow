@@ -42,6 +42,30 @@ public class MiniMaxTest {
         MiniMax miniMax = new MiniMax(field, 1, new HashMap<>(), new HashMap<>());
         MiniMaxScore miniMaxScore = miniMax.miniMax(6, 1);
         assertThat(miniMaxScore.column, is(3));
+
+        field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 2, 2, 0}});
+
+        miniMax = new MiniMax(field, 1, new HashMap<>(), new HashMap<>());
+        miniMaxScore = miniMax.miniMax(6, 1);
+        assertThat(miniMaxScore.column, is(0));
+
+        field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 2, 0, 0, 0, 0, 0},
+                {2, 2, 0, 0, 0, 0, 0},
+                {1, 1, 1, 0, 0, 0, 0}});
+
+        miniMax = new MiniMax(field, 2, new HashMap<>(), new HashMap<>());
+        miniMaxScore = miniMax.miniMax(6, 2);
+        assertThat(miniMaxScore.column, is(3));
     }
 
     @Test
