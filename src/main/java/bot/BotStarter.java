@@ -48,7 +48,6 @@ class BotStarter {
             Future<MiniMaxScore> submit = Executors.newSingleThreadExecutor().submit(() -> miniMax.miniMax(finalDepth, mBotId));
             try {
                 miniMaxScore = submit.get(deadline.minusMillis(Instant.now().toEpochMilli() + 50).toEpochMilli(), TimeUnit.MILLISECONDS);
-                System.out.println("Depth: " + depth);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -58,7 +57,6 @@ class BotStarter {
 //                System.out.println("Taking too long time, aborting.");
                 break;
             }
-            System.out.println("Depth: " + depth);
         }
 
         return miniMaxScore.column;
