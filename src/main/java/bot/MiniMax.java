@@ -45,7 +45,6 @@ public class MiniMax {
         List<Integer> moves = field.getAvailableMoves();
 
         if (moves.size() == 0 || depth == 0 || anyPlayerHasFourInARow()) {
-            //TODO: add to transposition table ?
             int score = field.getScore(maximizingPlayer);
             return MiniMaxScore.of(score, bestColumnMove);
         }

@@ -3,6 +3,7 @@ package bot;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.*;
 
 class BotStarter {
@@ -59,6 +60,10 @@ class BotStarter {
             }
         }
 
+        if(miniMaxScore == null || miniMaxScore.column == -1) {
+            // something went wrong in the algo?! still better to return something valid
+            return new Random().nextInt(mField.getNrColumns());
+        }
         return miniMaxScore.column;
     }
 
