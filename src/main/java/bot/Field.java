@@ -64,7 +64,7 @@ public class Field {
                         && mBoard[row][col + 1] == player
                         && mBoard[row][col + 2] == player
                         && mBoard[row][col + 3] == player) {
-                    return Integer.MAX_VALUE;
+                    return Integer.MAX_VALUE - round;
                 }
             }
             //Three in a row
@@ -104,7 +104,7 @@ public class Field {
                         && mBoard[row + 1][col] == player
                         && mBoard[row + 2][col] == player
                         && mBoard[row + 3][col] == player) {
-                    return Integer.MAX_VALUE;
+                    return Integer.MAX_VALUE - round;
                 }
             }
             //Three in a row
@@ -132,7 +132,7 @@ public class Field {
                         && mBoard[row + 1][col + 1] == player
                         && mBoard[row + 2][col + 2] == player
                         && mBoard[row + 3][col + 3] == player) {
-                    return Integer.MAX_VALUE;
+                    return Integer.MAX_VALUE - round;
                 }
             }
         }
@@ -178,7 +178,7 @@ public class Field {
                         && mBoard[row - 1][col + 1] == player
                         && mBoard[row - 2][col + 2] == player
                         && mBoard[row - 3][col + 3] == player) {
-                    return Integer.MAX_VALUE;
+                    return Integer.MAX_VALUE - round;
                 }
             }
         }

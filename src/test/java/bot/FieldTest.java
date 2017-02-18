@@ -78,6 +78,15 @@ public class FieldTest {
                 {0, 0, 0, 0, 0, 0, 1}});
         System.out.println(field.toString());
         assertThat(field.score(1), is(Integer.MAX_VALUE));
+
+        field = new Field(new int[][]{
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 1, 0, 0},
+                {2, 0, 1, 2, 1, 0, 0},
+                {2, 0, 1, 1, 1, 0, 2},
+                {2, 2, 2, 1, 1, 0, 2}});
+        assertThat(field.score(1), is(Integer.MAX_VALUE));
     }
 
     @Test
